@@ -184,7 +184,7 @@
   }
 </style>
 
-<main class="main">
+<main style="display: none;" class="main">
   <div class="content">
     <div class="left-side">
       <svg
@@ -340,5 +340,9 @@
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
+<app-carts [CartsObj]="cartsData">
+   <!-- whatever you want to put here will be projected into the <app-carts> component -->
+    <p>This is some projected content that will be displayed inside the component.</p>
+</app-carts>
 
 <router-outlet />
