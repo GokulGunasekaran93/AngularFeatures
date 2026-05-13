@@ -2,10 +2,12 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Carts } from './carts/carts';
 import { JsCourse } from './Javascript/js-course/js-course';
+import { Signals } from './signals/signals';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Carts , JsCourse],
+  imports: [RouterOutlet, Carts , JsCourse, Signals],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
