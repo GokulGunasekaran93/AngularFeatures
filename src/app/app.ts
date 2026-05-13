@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { Carts } from './carts/carts';
 import { JsCourse } from './Javascript/js-course/js-course';
 import { Signals } from './signals/signals';
+import { User } from './user/user';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Carts , JsCourse, Signals],
+  imports: [RouterOutlet, Carts , JsCourse, Signals, User],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
