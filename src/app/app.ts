@@ -4,11 +4,12 @@ import { Carts } from './carts/carts';
 import { JsCourse } from './Javascript/js-course/js-course';
 import { Signals } from './signals/signals';
 import { User } from './user/user';
+import { RxjsOperatorComp } from './rxjs-operator-comp/rxjs-operator-comp';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Carts , JsCourse, Signals, User],
+  imports: [RouterOutlet, Carts , JsCourse, Signals, User,RxjsOperatorComp],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
