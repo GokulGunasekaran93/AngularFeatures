@@ -1,0 +1,85 @@
+
+<h1 style="text-align: center;"> Calculator UI </h1>  
+<div style="display: flex;
+  justify-content: center; 
+  align-items: center;">
+<table class="calculator">
+
+    <tr>        
+<td colspan="4" style="font-size: x-large;text-align: right; color: green;">
+      {{currentInput || 0}}
+</td>
+    </tr>
+    <tr>
+        <td>
+            <button (click)="backSpaceOpr()">Clear</button>    
+        </td>
+                <td>
+            <button (click)="currentInput = ''">AC</button>    
+        </td>
+                        <td class="mathOperators" >
+            <button (click)="currentInput += '%'">%</button>    
+                        <td class="mathOperators" >
+            <button (click)="currentInput += '/'">/</button>    
+        </td>
+        </tr>
+     <tr>
+        <td>
+            <button (click)="currentInput += '7'">7</button>    
+        </td>
+                <td>
+            <button (click)="currentInput += '8'">8</button>    
+        </td>
+                        <td>
+            <button (click)="currentInput += '9'">9</button>    
+        </td>
+                        <td class="mathOperators" >
+            <button (click)="currentInput += '*'">*</button>    
+        </td>
+        </tr>
+    
+        <tr>
+        <td>
+            <button (click)="currentInput += '4'">4</button>    
+        </td>
+                <td>
+            <button (click)="currentInput += '5'">5</button>    
+        </td>
+                        <td>
+            <button (click)="currentInput += '6'">6</button>    
+        </td>
+                        <td class="mathOperators" >
+            <button (click)="currentInput += '-'">-</button>    
+        </td>
+        </tr>
+             
+        <tr>
+        <td>
+            <button (click)="currentInput += '1'">1</button>    
+        </td>
+                <td>
+            <button (click)="currentInput += '2'">2</button>    
+        </td>
+                        <td>
+            <button (click)="currentInput += '3'">3</button>    
+        </td>
+                        <td class="mathOperators" >
+            <button (click)="currentInput += '+'">+</button>    
+        </td>
+    </tr>
+        <tr>
+            <td>
+                <button (click)="toggleSign()">+/-</button>
+            </td>
+            <td>
+                <button (click)="currentInput += '0'">0</button>
+            </td>
+            <td>
+                <button (click)="currentInput += '.'">.</button>
+            </td>
+            <td class="mathOperators">
+                <button  (click)="calculate()">=</button>
+            </td>
+        </tr>
+</table>
+</div>

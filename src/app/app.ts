@@ -6,11 +6,12 @@ import { Signals } from './signals/signals';
 import { User } from './user/user';
 import { RxjsOperatorComp } from './rxjs-operator-comp/rxjs-operator-comp';
 import { AGGrid } from './aggrid/aggrid';
+import { CalculatorUI } from "./calculator-ui/calculator-ui";
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Carts , JsCourse, Signals, User, RxjsOperatorComp , AGGrid],
+  imports: [RouterOutlet, Carts, JsCourse, Signals, User, RxjsOperatorComp, AGGrid, CalculatorUI],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
