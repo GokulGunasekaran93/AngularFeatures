@@ -1,0 +1,23 @@
+.calculator {
+    height: 300px;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.calculator tr , .calculator td {
+    border: 1px solid grey;
+}
+
+.calculator button{
+    height: 50px;
+    width: 50px;
+    font-size: 18px;
+    align-content: center;
+}
+
+.mathOperators{
+    background-color: rgb(216, 132, 72);
+    color: whitesmoke;
+}
