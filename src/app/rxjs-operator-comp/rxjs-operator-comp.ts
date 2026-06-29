@@ -4,6 +4,7 @@ import {
   AsyncSubject,
   BehaviorSubject,
   combineLatest,
+  concat,
   delay,
   distinctUntilChanged,
   filter,
@@ -52,7 +53,34 @@ export class RxjsOperatorComp implements OnInit {
 
   constructor() {}
 
+
+  creationalOperators(){
+
+    // of([1,2,3]) gives single array as output, but of(1,2,3) gives 1,2,3 as output one by one
+    // bcz it takes as array as single value, but in second case it takes each value as single value and emits one by one
+
+    // from operator converts array to observable stream, and emits each item one by one
+    // of operator emits the whole array as a single item, so it will emit the entire array at once
+
+    // map operator is used to transform the emitted values, in this case we are converting each language 
+    // name to lowercase before pushing it to the languagesList array
+    this.oprSrv.$langObs.pipe(map((lang) => lang.toLowerCase())).subscribe((lang) => {
+      this.languagesList.push(lang);
+    });
+    this.oprSrv.$langObsvable.subscribe((lang) => console.log(lang));
+
+    console.log('Creational Operators Example : ' , this.languagesList);
+
+  }
+
+
   combineLatestExample() {
+    // combineLatest operator is used to combine the latest values from multiple observables, 
+    // and it will emit the combined values as an array, it will emit the values only when all the source observables 
+    // have emitted at least once, and it will emit the values in the order they were emitted by the source observables
+
+   // this.changeBSValue();
+
     combineLatest([this.$age, this.$name]).subscribe(([age, name]) => {
       console.log('Age : ', age);
       console.log('Name : ', name);
@@ -66,7 +94,7 @@ export class RxjsOperatorComp implements OnInit {
     this.$name.next('Doe');
   }
 
-  test() {
+   combinationOpr1() {
     forkJoin(this.oprSrv.$langObsDelay, this.oprSrv.$langObsvableDelay).subscribe(
       ([langs, nums]) => {
         console.log('Languages : ', langs);
@@ -74,10 +102,17 @@ export class RxjsOperatorComp implements OnInit {
       },
     );
 
-    // concat is similar to forkJoin but it will emit the values one by one, and it will not wait for all the observables to complete before emitting the values, it will emit the values as soon as they are emitted by the source observables
-    // concat(this.oprSrv.$langObsDelay, this.oprSrv.$langObsvableDelay).subscribe((val) => {
-    //   console.log('Concat Value : ', val);
-    // });
+    // forjoin emits only when all the observables have completed, and it will emit the last emitted value from each observable as an array, 
+    // so it will emit the last emitted value from $langObsDelay and $langObsvableDelay as an array,
+    //  and it will emit the values only when both the observables have completed, so it will emit the values after 8 seconds 
+    // as $langObsvableDelay has a delay of 8 seconds, and $langObsDelay has a delay of 3 seconds, so it will emit the values after 8 seconds 
+    // as both the observables have completed.
+
+    // concat is similar to forkJoin but it will emit the values one by one, and it will not wait for all the observables to complete before emitting the values,
+    //  it will emit the values as soon as they are emitted by the source observables
+    concat(this.oprSrv.$langObsDelay, this.oprSrv.$langObsvableDelay).subscribe((val) => {
+      console.log('Concat Value : ', val);
+    });
   }
 
   distinctUntilChangedExample() {
@@ -89,6 +124,11 @@ export class RxjsOperatorComp implements OnInit {
       console.log('Distinct Until Changed Value : ', num);
     });
   }
+
+  // zip vs withlatest vs combine latest
+  // zip - emits only when all the source observables have emitted a value, and it will emit the values in the order they were emitted by the source observables
+  // withLatestFrom - emits only when the source observable emits a value, and it will emit the latest values from the other observables, and it will emit the values in the order they were emitted by the source observable
+  // combineLatest - emits when any of the source observables emit a value, and it will emit the latest values from all the observables, and it will emit the values in the order they were emitted by the source observables
 
   zipExample() {
     // zip operator is used to combine the values from multiple observables,
@@ -106,6 +146,8 @@ export class RxjsOperatorComp implements OnInit {
     //  and it will emit the combined values as an array, it will emit the values only when the source observable emits a value,
     //  and it will emit the latest values from the other observables,
     //  it will emit the values in the order they were emitted by the source observable
+
+  
 
     this.oprSrv.$langObsDelay
       .pipe(withLatestFrom(this.oprSrv.$langObsvableDelay))
@@ -165,7 +207,8 @@ export class RxjsOperatorComp implements OnInit {
     // Subject Value subscriber2 :  1
     // Subject Value subscriber2 :  2
     // Subject Value subscriber2 :  3
-    // each subscriber will get the values separately, so it will emit 1,2,3 to the console for each subscriber, so it will emit 1,2,3 twice in the console, but in subject it will emit 1,2,3 only once in the console as it is a multicast observable and it will emit the values to all the subscribers
+    // each subscriber will get the values separately, so it will emit 1,2,3 to the console for each subscriber, so it will emit 1,2,3 twice in the console,
+    //  but in subject it will emit 1,2,3 only once in the console as it is a multicast observable and it will emit the values to all the subscribers
 
     // above code is same as obervable but the difference is that in observable
     // each subscriber will receive the values separately,
@@ -195,6 +238,11 @@ export class RxjsOperatorComp implements OnInit {
       const randomNum = Math.random();
       randomNumSubject.next(parseFloat((randomNum * 100).toFixed(2)));
     }, 2000);
+
+    // give same number twoce - multicast
+
+    // diff two nymber - observer - unicast
+
 
     // unicast diff value for observable
     // use same code for observable
@@ -452,21 +500,39 @@ export class RxjsOperatorComp implements OnInit {
 
     // below code will emit a value every 2 seconds, and the emitted value will be the number of times the interval has been emitted, starting from 0
     var interval$ = interval(2000);
-    interval$.subscribe((val) => console.log('Interval Value : ', val));
+    //interval$.subscribe((val) => console.log('Interval Value : ', val));
 
+
+    // timer operator is used to emit a single value after a specified delay, and then complete the observable, so it will not emit any more values after that
     const timer$ = timer(5000);
     // have to unsubscribe timers$
     timer$.subscribe((val) => console.log('Timer Value : emitted after 5 seconds : ', val));
+    // this will emit a value after 5 seconds, and the emitted value will be 0
+    // why zero, bcz it is the first value emitted by the timer operator, and it will not emit any more values after that
+
+
+    const timerwithInterval$ = timer(5000, 2000);
+    // this will emit a value after 5 seconds, and then it will emit a value every 2 seconds, 
+    // and the emitted value will be the number of times the interval has been emitted, starting from 0
+    timerwithInterval$.subscribe((val) =>
+      console.log('Timer with Interval Value : emitted after 5 seconds and then every 2 seconds : ', val),
+    );
+
 
     this.oprSrv.$numberObservable
       .pipe(delay(3000))
       .subscribe((num) => console.log('Delayed Value : emitted after 5 seconds : ', num));
+      // stop emit after 5 secodns
+// delay - used for existing observable
+// timer - used to create new observable
 
     //delay(5000)(() => console.log('Delayed Value : emitted after 5 seconds'));
 
-    // delay operator is used to delay the emission of values, debounceTime operator is used to emit a value only after a specified time has passed without any new values being emitted, and throttleTime operator is used to emit a value at most once in a specified time period
+    // delay operator is used to delay the emission of values, debounceTime operator is used to emit a value only after a specified time has passed without any new values being emitted,
+    //  and throttleTime operator is used to emit a value at most once in a specified time period
 
-    // take operator is used to take a specified number of values from the source observable, and skip operator is used to skip a specified number of values from the source observable before emitting the remaining values
+    // take operator is used to take a specified number of values from the source observable, 
+    // and skip operator is used to skip a specified number of values from the source observable before emitting the remaining values
 
     this.oprSrv.$numberObservable
       .pipe(take(5))
@@ -477,17 +543,8 @@ export class RxjsOperatorComp implements OnInit {
     timer(5000).subscribe((val) => console.log('Timer Value : emitted after 5 seconds : ', val));
   }
 
-  ngOnInit(): void {
-    this.asyncSubjectExample();
-    return;
-    this.replaySubjectExample();
+  pipeliningTransformationOperators() {
 
-    this.combineLatestExample();
-    this.test();
-
-    this.SubjectExample();
-
-    //this.timingControlOperators();
     //first operator is used to get the first value that matches the condition,
     // first will complete the observable after emitting the first value that matches the condition, so it will not emit any more values after that
 
@@ -498,6 +555,8 @@ export class RxjsOperatorComp implements OnInit {
 
     //filter operator is used to filter the emitted values based on a condition,
 
+  // emit one by one and filter the values based on the condition, in this case we are filtering the even numbers from the emitted values, 
+  // and pushing them to the filteredLanguagesList array
     this.oprSrv.$numberObservable.pipe(filter((num) => num % 2 === 0)).subscribe((num) => {
       this.filteredLanguagesList.push(num.toString());
       console.log('Filtered Numbers  List : ', this.filteredLanguagesList);
@@ -507,10 +566,24 @@ export class RxjsOperatorComp implements OnInit {
 
     // pipe is used to chain multiple operators together, and map operator is used to transform the emitted values,
     // in this case we are converting each language name to lowercase before pushing it to the languagesList array
+    // map will return values one by one, so we can use subscribe to get the values one by one and push them to the languagesList array
     this.oprSrv.$langObs.pipe(map((lang) => lang.toLowerCase())).subscribe((lang) => {
+      console.log('Lowercase Language : ', lang);
       this.languagesList.push(lang);
     });
     this.oprSrv.$langObsvable.subscribe((lang) => console.log(lang));
+  }
+
+  ngOnInit(): void {
+    // combne oper
+  //  this.combineLatestExample();
+  //   this.combinationOpr1();
+  //   this.timingControlOperators();
+  //   this.pipeliningTransformationOperators();
+  //   this.creationalOperators();
+  //   this.asyncSubjectExample();
+  //   this.replaySubjectExample();
+    this.SubjectExample();
   }
 
   ngonDestroy() {}

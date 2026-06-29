@@ -57,6 +57,8 @@ constructor() {
   //   });
     // can we be called in constructor or above injector
     // use for logging api calls
+    // effect in cnstrutcor will call once, then on value chnages
+    // compute will call only if we use it in template or in code, else it wont call
 }
 
 
