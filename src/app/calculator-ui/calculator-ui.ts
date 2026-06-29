@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { NgFor } from '@angular/common';
 
 @Component({
@@ -13,7 +13,10 @@ export class CalculatorUI {
   operators: string[] = ['+', '-', '*', '/', '='];
   currentInput: string = '';
 
-  constructor() {}
+  // can get the query params using the input angular
+  pageId = input.required();
+
+  constructor() { }
 
   calculate(){
     try {

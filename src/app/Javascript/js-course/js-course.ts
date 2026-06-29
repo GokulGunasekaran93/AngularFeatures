@@ -13,10 +13,6 @@ export class JsCourse  implements OnInit {
     console.log(this.factorial(5));
     console.log(this.recursiveFactorial(5));
 
-
-    
-
-
     for (let i = 0; i < 5; i++) {
   if (i === 2) {
     continue; // Skip i = 2, go to next iteration
