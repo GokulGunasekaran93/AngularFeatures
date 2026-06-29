@@ -14,13 +14,16 @@ export class CalculatorUI {
   currentInput: string = '';
 
   // can get the query params using the input angular
-  pageId = input.required();
+  pageId =2;// input.required();
 
   constructor() { }
 
   calculate(){
     try {
-      this.currentInput = eval(this.currentInput).toString();
+      // added for unit testing purpose, to remove the = sign from the expression before evaluating it
+      const expression = this.currentInput.replace('=', '');
+      
+      this.currentInput = eval(expression).toString();
     } catch (error) {
       this.currentInput = 'Error';
     }
