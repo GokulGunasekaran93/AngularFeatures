@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { NgFor } from '@angular/common';
 
 @Component({
@@ -13,11 +13,17 @@ export class CalculatorUI {
   operators: string[] = ['+', '-', '*', '/', '='];
   currentInput: string = '';
 
-  constructor() {}
+  // can get the query params using the input angular
+  pageId =2;// input.required();
+
+  constructor() { }
 
   calculate(){
     try {
-      this.currentInput = eval(this.currentInput).toString();
+      // added for unit testing purpose, to remove the = sign from the expression before evaluating it
+      const expression = this.currentInput.replace('=', '');
+      
+      this.currentInput = eval(expression).toString();
     } catch (error) {
       this.currentInput = 'Error';
     }

@@ -184,8 +184,26 @@
   }
 </style>
 
-<main style="display: none;" class="main">
-  <div class="content">
+<ul>
+    <!-- <li (click)="curRoute = '/aggrid'" [ngClass]="{'active': curRoute === '/aggrid'}" routerLink="/aggrid">AG Grid</li>
+        <li (click)="curRoute = '/rxjs'" [ngClass]="{'active': curRoute === '/rxjs'}" routerLink="/rxjs">RXJS</li>
+            <li (click)="curRoute = '/calc'" [ngClass]="{'active': curRoute === '/calc'}" routerLink="/calc">Calculator</li> -->
+
+           <!-- // routerlinkactiveoptions exact match set 
+           // notes/note
+           // notes
+           // both can set active lnk to avoid that us ethe code -->
+
+            <li routerLinkActive="active" routerLink="/aggrid">AG Grid</li>
+        <li routerLinkActive="active" routerLink="/rxjs">RXJS</li>
+            <li routerLinkActive="active"  routerLink="/calc">Calculator</li>
+
+            <li routerLinkActive="active"  routerLink="/appcon">AppConfig</li>
+
+            
+  </ul>
+<!-- <main>
+  <div class="content" style="display: none;">
     <div class="left-side">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -330,7 +348,11 @@
       </div>
     </div>
   </div>
-</main>
+
+  
+</main> -->
+
+
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
@@ -340,9 +362,9 @@
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<app-calculator-ui>
+<!-- <app-calculator-ui>
 
-</app-calculator-ui>
+</app-calculator-ui> -->
 
 <!-- <app-aggrid>
 

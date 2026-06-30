@@ -19,7 +19,7 @@ export class OperatorsCheckService {
   $langObsDelay = from (this.languages).pipe(delay(3000)); // delay operator is used to delay the emission of values, it will emit the values after 2 seconds
 
   // of operator emits the whole array as a single item, so it will emit the entire array at once
-  $langObsvableDelay = of (1,2,3,4,5,6,7,8,9,10).pipe(delay(4000));  // delay operator is used to delay the emission of values, it will emit the values after 2 seconds
+  $langObsvableDelay = of (1,2,3,4,5,6,7,8,9,10).pipe(delay(8000));  // delay operator is used to delay the emission of values, it will emit the values after 2 seconds
 
 
   
